@@ -1,0 +1,15 @@
+{
+  "name": "bookshelf-backend",
+  "version": "0.0.0",
+  "description": "Bookshelf backend service",
+  "main": "index.js",
+  "author": "Jim Saari",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "knex": "^0.21.5",
+    "pg": "^8.3.3"
+  }
+}
