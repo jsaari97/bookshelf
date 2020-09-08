@@ -1,9 +1,9 @@
 import { schema } from "nexus";
 
 schema.objectType({
-  name: "Post",
+  name: "Category",
   definition(t) {
     t.model.id()
-    t.model.title()
+    t.model.name()
   },
 });

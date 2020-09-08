@@ -2,6 +2,16 @@ import { schema } from "nexus";
 
 schema.queryType({
   definition(t) {
-    t.crud.posts({ type: "Post", ordering: true, filtering: true });
+    t.crud.author();
+    t.crud.authors({ type: "Author" });
+
+    t.crud.book();
+    t.crud.books({ type: "Book" });
+
+    t.crud.user();
+    t.crud.users({ type: "User" });
+
+    t.crud.category();
+    t.crud.categories({ type: "Category" });
   },
 });
