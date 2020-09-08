@@ -13,5 +13,9 @@ schema.queryType({
 
     t.crud.category();
     t.crud.categories({ type: "Category" });
+
+    t.crud.authorsOnBooks();
+    t.crud.usersOnBooks();
+    t.crud.categoriesOnBooks();
   },
 });

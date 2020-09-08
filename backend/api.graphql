@@ -3,8 +3,20 @@
 
 
 type Author {
+  books(after: AuthorsOnBooksWhereUniqueInput, before: AuthorsOnBooksWhereUniqueInput, first: Int, last: Int): [AuthorsOnBooks!]!
   id: Int!
   name: String!
+}
+
+type AuthorsOnBooks {
+  author: Author!
+  authorId: Int!
+  book: Book!
+  bookId: Int!
+}
+
+input AuthorsOnBooksWhereUniqueInput {
+  bookId_authorId: BookIdAuthorIdCompoundUniqueInput
 }
 
 input AuthorWhereUniqueInput {
@@ -12,15 +24,48 @@ input AuthorWhereUniqueInput {
 }
 
 type Book {
+  addedBy: User
+  authors(after: AuthorsOnBooksWhereUniqueInput, before: AuthorsOnBooksWhereUniqueInput, first: Int, last: Int): [AuthorsOnBooks!]!
+  categories(after: CategoriesOnBooksWhereUniqueInput, before: CategoriesOnBooksWhereUniqueInput, first: Int, last: Int): [CategoriesOnBooks!]!
+  cover: String
+  description: String
   id: Int!
   title: String!
+  users(after: UsersOnBooksWhereUniqueInput, before: UsersOnBooksWhereUniqueInput, first: Int, last: Int): [UsersOnBooks!]!
+}
+
+input BookIdAuthorIdCompoundUniqueInput {
+  authorId: Int!
+  bookId: Int!
+}
+
+input BookIdCategoryIdCompoundUniqueInput {
+  bookId: Int!
+  categoryId: Int!
+}
+
+input BookIdUserIdCompoundUniqueInput {
+  bookId: Int!
+  userId: Int!
 }
 
 input BookWhereUniqueInput {
   id: Int
 }
 
+type CategoriesOnBooks {
+  book: Book!
+  bookId: Int!
+  category: Category!
+  categoryId: Int!
+}
+
+input CategoriesOnBooksWhereUniqueInput {
+  bookId_categoryId: BookIdCategoryIdCompoundUniqueInput
+}
+
 type Category {
+  books(after: CategoriesOnBooksWhereUniqueInput, before: CategoriesOnBooksWhereUniqueInput, first: Int, last: Int): [CategoriesOnBooks!]!
   id: Int!
   name: String!
 }
@@ -44,17 +89,42 @@ scalar Json
 type Query {
   author(where: AuthorWhereUniqueInput!): Author
   authors(after: AuthorWhereUniqueInput, before: AuthorWhereUniqueInput, first: Int, last: Int): [Author!]!
+  authorsOnBooks(after: AuthorsOnBooksWhereUniqueInput, before: AuthorsOnBooksWhereUniqueInput, first: Int, last: Int): [AuthorsOnBooks!]!
   book(where: BookWhereUniqueInput!): Book
   books(after: BookWhereUniqueInput, before: BookWhereUniqueInput, first: Int, last: Int): [Book!]!
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
+  categoriesOnBooks(after: CategoriesOnBooksWhereUniqueInput, before: CategoriesOnBooksWhereUniqueInput, first: Int, last: Int): [CategoriesOnBooks!]!
   category(where: CategoryWhereUniqueInput!): Category
   user(where: UserWhereUniqueInput!): User
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
+  usersOnBooks(after: UsersOnBooksWhereUniqueInput, before: UsersOnBooksWhereUniqueInput, first: Int, last: Int): [UsersOnBooks!]!
+}
+
+enum ReadingStatus {
+  FINISHED
+  IN_PROGRESS
+  NOT_STARTED
 }
 
 type User {
+  addedBooks(after: BookWhereUniqueInput, before: BookWhereUniqueInput, first: Int, last: Int): [Book!]!
+  books(after: UsersOnBooksWhereUniqueInput, before: UsersOnBooksWhereUniqueInput, first: Int, last: Int): [UsersOnBooks!]!
+  email: String!
   id: Int!
   name: String!
+}
+
+type UsersOnBooks {
+  book: Book!
+  bookId: Int!
+  pageNumber: Int
+  status: ReadingStatus!
+  user: User!
+  userId: Int!
+}
+
+input UsersOnBooksWhereUniqueInput {
+  bookId_userId: BookIdUserIdCompoundUniqueInput
 }
 
 input UserWhereUniqueInput {
