@@ -17,5 +17,16 @@ schema.queryType({
     t.crud.authorsOnBooks();
     t.crud.usersOnBooks();
     t.crud.categoriesOnBooks();
+
+    t.field("me", {
+      type: "User",
+      resolve: (_, __, ctx) => {
+        return ctx.db.user.findOne({
+          where: {
+            id: 1,
+          },
+        });
+      },
+    });
   },
 });
